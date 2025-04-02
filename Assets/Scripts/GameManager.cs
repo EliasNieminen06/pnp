@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -57,12 +58,19 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
     }
 
+    public void Menu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void Win()
     {
         SceneManager.LoadScene("WinMenu");
         currentState = State.Menu;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        //PlayerPrefs.Save(totalScore, "");
     }
 
     public void Caught()
