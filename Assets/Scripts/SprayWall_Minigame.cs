@@ -13,6 +13,8 @@ public class SprayWall_Minigame : MonoBehaviour
 
     public int destroyedTargetsCount;
 
+    public float score;
+
     private void Awake()
     {
         instance = this;

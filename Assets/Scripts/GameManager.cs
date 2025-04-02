@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     private int spray1Amount = 0;
     private int spray2Amount = 0;
 
+    public float totalScore;
+
     private void Awake()
     {
         if (instance != null && instance != this)
