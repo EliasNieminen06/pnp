@@ -40,6 +40,7 @@ public class SprayWall_Minigame : MonoBehaviour
 
     void FinishGame()
     {
+        GameManager.instance.currentState = GameManager.State.Game;
         minigameCanvas.enabled = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

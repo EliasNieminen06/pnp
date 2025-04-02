@@ -7,5 +7,6 @@ public class SprayWall_interact : MonoBehaviour, IInteractable
     public void Interact()
     {
         mingame.GetComponent<SprayWall_Minigame>().StartGame();
+        GameManager.instance.currentState = GameManager.State.MiniGame;
     }
 }
