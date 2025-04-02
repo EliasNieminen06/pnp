@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public int spray1Need = 0;
     public int spray2Need = 0;
-    private int spray1Amount = 0;
-    private int spray2Amount = 0;
+    public int spray1Amount = 0;
+    public int spray2Amount = 0;
 
     public float totalScore;
 
@@ -53,17 +53,23 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
         currentState = State.Game;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void Win()
     {
         SceneManager.LoadScene("WinMenu");
         currentState = State.Menu;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void Caught()
     {
         SceneManager.LoadScene("CaughtMenu");
         currentState = State.Menu;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

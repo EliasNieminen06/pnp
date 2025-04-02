@@ -9,15 +9,15 @@ public class Target : MonoBehaviour
         timeTaken += Time.deltaTime;
         if (timeTaken >= 5)
         {
-            SprayWall_Minigame.instance.score -= 20;
+            Minigame.instance.score -= 20;
             Destroy(gameObject);
         }
     }
 
     public void clicked()
     {
-        SprayWall_Minigame.instance.destroyedTargetsCount++;
-        SprayWall_Minigame.instance.score += 50 / timeTaken;
+        Minigame.instance.destroyedTargetsCount++;
+        Minigame.instance.score += 50 / timeTaken;
         Destroy(gameObject);
     }
 }
