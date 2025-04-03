@@ -27,15 +27,6 @@ public class FieldOfSight : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.currentState == GameManager.State.MiniGame)
-        {
-            currentState = State.MiniGame;
-        }
-        else
-        {
-            currentState = State.Wandering;
-        }
-
         switch (currentState)
         {
             case State.Wandering:

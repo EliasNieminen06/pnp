@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
@@ -18,12 +19,22 @@ public class Minigame : MonoBehaviour
 
     public float score;
 
+    public AudioSource spraySound;
+
     private void Awake()
     {
         instance = this;
     }
 
-    public void StartGame(bool isTag)
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            failGame();
+        }
+    }
+
+    public void StartGame(bool isTag, Canvas painting, TagMinigameinteract interact)
     {
         if (isTag)
         {
@@ -36,7 +47,7 @@ public class Minigame : MonoBehaviour
         destroyedTargetsCount = 0;
         Player.instance.canMove = false;
         minigameCanvas.enabled = true;
-        StartCoroutine(MiniGame(isTag));
+        StartCoroutine(MiniGame(isTag, painting, interact));
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -51,7 +62,7 @@ public class Minigame : MonoBehaviour
         Instantiate(targetPrefab, spawnPosition, Quaternion.identity, transform);
     }
 
-    void FinishGame(bool isTag)
+    void FinishGame(bool isTag, Canvas painting, TagMinigameinteract interact)
     {
         GameManager.instance.currentState = GameManager.State.Game;
         minigameCanvas.enabled = false;
@@ -68,9 +79,23 @@ public class Minigame : MonoBehaviour
         {
             GameManager.instance.spray2Amount++;
         }
+        painting.enabled = true;
+        spraySound.Play();
+        interact.played = true;
     }
 
-    public IEnumerator MiniGame(bool isTag)
+    void failGame()
+    {
+        StopAllCoroutines();
+        GameManager.instance.currentState = GameManager.State.Game;
+        minigameCanvas.enabled = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Player.instance.canMove = true;
+        score = 0;
+    }
+
+    public IEnumerator MiniGame(bool isTag, Canvas painting, TagMinigameinteract interact)
     {
         while (destroyedTargetsCount < targetCount)
         {
@@ -78,6 +103,6 @@ public class Minigame : MonoBehaviour
             SpawnTarget();
         }
 
-        FinishGame(isTag);
+        FinishGame(isTag, painting, interact);
     }
 }

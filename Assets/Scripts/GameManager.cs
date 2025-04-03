@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
         if (spray1Amount == spray1Need &&  spray2Amount == spray2Need)
         {
             Win();
+            spray1Amount = 0; 
+            spray2Amount = 0;
         }
         switch (currentState)
         {
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     public void Begin()
     {
+        totalScore = 0;
         SceneManager.LoadScene("GameScene");
         currentState = State.Game;
         Cursor.lockState = CursorLockMode.Locked;
@@ -69,8 +72,10 @@ public class GameManager : MonoBehaviour
         currentState = State.Menu;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
-        //PlayerPrefs.Save(totalScore, "");
+        if (PlayerPrefs.GetFloat("hs") < totalScore)
+        {
+            PlayerPrefs.SetFloat("hs", totalScore);
+        }
     }
 
     public void Caught()
